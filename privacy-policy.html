@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>缉熙 · 隐私政策</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0 auto; max-width: 860px; padding: 32px 24px 80px; font: 16px/1.85 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; color: #1f2328; background: #fff; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 32px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }
+  h3 { font-size: 17px; margin: 22px 0 6px; }
+  p, li { margin: 8px 0; }
+  ul, ol { padding-left: 24px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+  th, td { border: 1px solid #d8dde3; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f6f8fa; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-size: 14px; }
+  .draft { background: #fff4e5; border: 1px solid #f0b429; border-radius: 8px; padding: 14px 18px; margin-bottom: 28px; color: #7a4b00; }
+  .todo { background: #fff1f0; border-left: 3px solid #d4380d; padding: 2px 10px; color: #a8071a; }
+  .meta { color: #57606a; font-size: 14px; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #e5e7eb; color: #57606a; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="draft">
+  <strong>定稿候选 2026-11-12 · 占位已补齐 · 托管上线前请通读一遍做最终确认</strong><br>
+  运营主体与联系邮箱已由使用者确认（2026-11-12，见 AGENT-LOG 台账）。本页用于纯海外发布（不含中国大陆）的自定义隐私政策 URL；事实依据不变：<code>docs/05</code>、<code>docs/18</code>、<code>docs/20</code>。
+</div>
+
+<h1>缉熙 隐私政策</h1>
+<p class="meta">应用名称：缉熙（Perlume）　|　包名：com.kestrel.harness　|　运营者：付梓轩（个人开发者）　|　版本：0.1.0　|　生效日期：2026-11-12</p>
+
+<p>缉熙是一款运行在平板与 2in1 设备上的本地智能体工作台。应用内自带端侧运行时与插件化核心，不依赖开发者运营的服务器。本政策说明应用如何处理你的数据。核心事实是：<strong>应用不要求注册账号，不收集个人信息用于自身运营，业务数据默认只保存在你的设备本机。</strong></p>
+
+<h2>1. 我们不收集什么</h2>
+<ul>
+  <li><strong>无账号体系</strong>：不强制注册、不自建账号。你可自愿使用「更多 → 登录」的华为账号快捷登录（见第 7 节）。</li>
+  <li><strong>无遥测、无数据上报</strong>：遥测功能默认关闭且不随包启用，不做设备指纹，不主动上报设备标识。</li>
+  <li><strong>不申请</strong>通讯录、位置、相机、麦克风、剪贴板读取、应用列表等权限。</li>
+  <li>发布包仅申请两项权限，见第 5 节。</li>
+</ul>
+
+<h2>2. 数据存在哪里、保留多久</h2>
+<p>全部业务数据仅保存在本机：默认在应用沙箱；若你通过系统目录选择器明确选定并授权了某个设备文件夹，该工作区内的改动还会写回那个文件夹（仍在本机，不出端）。卸载应用或清除数据会删除沙箱内的副本，<strong>已写回设备目录的文件不受影响</strong>。</p>
+<table>
+  <tr><th>数据</th><th>位置</th><th>说明</th></tr>
+  <tr><td>会话记录</td><td>应用沙箱 <code>files/dsh-home/sessions</code></td><td>不出端；可在应用内导出或删除</td></tr>
+  <tr><td>工作区文件</td><td>应用沙箱 <code>files/dsh-home/workspace/&lt;目录名&gt;</code>（副本）；以及你明确选定的设备文件夹</td><td>选定文件夹的内容会被复制进沙箱供模型读写；自 2026-11-09 起，沙箱副本中新建/修改的文件会自动回写到你选的设备文件夹。回写采取保守策略：设备侧文件被外部改动时判冲突跳过、不覆盖；不把沙箱里的删除镜像回设备目录；仅对经系统选择器授权并导入过的文件夹生效，默认工作区没有设备侧目标</td></tr>
+  <tr><td>诊断日志</td><td>应用沙箱 <code>files/dsh-home/logs</code></td><td>脱敏后仅存本地，可导出</td></tr>
+  <tr><td>模型 API 密钥</td><td>系统密钥库（<code>@ohos.security.asset</code>）</td><td>明文不落盘、不进日志；仅在你发起请求时发给你自己配置的模型服务商</td></tr>
+  <tr><td>华为账号标识</td><td>应用沙箱内的登录态缓存</td><td>仅为脱敏后的标识，用于本机展示；不上传、不留存原文</td></tr>
+</table>
+
+<h2>3. 网络通信</h2>
+<ul>
+  <li>出站连接仅两类：<strong>你自行配置的模型服务端点</strong>，与<strong>你主动触发的网页抓取</strong>。</li>
+  <li>应用内置的本地运行时只监听本机回环地址 <code>127.0.0.1</code>，不监听 <code>0.0.0.0</code>，不具备对外服务能力。</li>
+  <li>除上述两类外无其他出站，无遥测上传。</li>
+</ul>
+
+<h2>4. 权限用途</h2>
+<table>
+  <tr><th>权限</th><th>用途</th><th>触发时机</th></tr>
+  <tr><td><code>ohos.permission.INTERNET</code></td><td>访问你配置的模型服务端点；与本机 127.0.0.1 回环端口通信</td><td>发送对话 / 你主动使用插件市场安装时</td></tr>
+  <tr><td><code>ohos.permission.FILE_ACCESS_PERSIST</code></td><td>记住你在系统目录选择器中选定的工作区目录，重启后授权仍有效</td><td>仅当你使用「选择工作区目录」时；不用于批量读取存储</td></tr>
+</table>
+
+<h2>5. 插件市场与第三方代码</h2>
+<p>应用提供插件市场功能：可由你按需从插件索引安装<strong>纯 JavaScript 插件包</strong>，与官方客户端机制一致（不执行安装脚本、不安装原生组件、拒绝原生二进制与平台不匹配包）。插件索引默认为空、由你自行添加；<strong>你不使用插件市场功能时，应用不会从网络下载任何第三方代码</strong>。当前版本不提供「一键关闭插件市场」的开关，特此如实说明。</p>
+
+<h2>6. 导出与分享</h2>
+<p>「设备与诊断」分区提供两个由你主动触发的动作：导出会话 Markdown、导出诊断包。会话数据来自应用沙箱内的会话日志；诊断包按脱敏规则掩码密钥、token、路径与 URI 字段，不含会话正文与密钥明文。优先写入你通过系统保存选择器指定的位置；写盘不可用时降级为复制到系统剪贴板，界面会如实说明是否写盘成功。</p>
+<p>「生成分享图」会把会话正文先脱敏，在应用内绘制为 PNG，写入应用沙箱后交给系统分享面板；是否外发由你在系统面板决定，应用不自建外发通道。请注意：<strong>内容一旦复制到剪贴板或经系统分享面板发送，即可能离开本应用</strong>，此后由你自行控制。</p>
+
+<h2>7. 可选的华为账号登录</h2>
+<p>仅在你主动点击「登录」后调用华为账号服务，取得账号标识后只在本机保存脱敏标识与登录态，不收集头像、昵称、手机号，不上传账号标识，不做云同步。未配置相关服务时登录失败会按错误码降级，应用不崩溃。你可随时退出登录清除本机登录态。</p>
+
+<h2>8. 后台通知</h2>
+<p>应用可在处于后台时，就「工具审批请求、用户提问请求、会话由运行转完成」三类事件发布基础文本通知。仅后台发布，前台一律抑制。通知授权由应用回到前台时通过系统对话框取得，你拒绝后本生命周期不再重复弹窗，未授权时静默放弃。通知文案最小化生成，<strong>不含会话正文、模型回复、API Key 或文件路径</strong>；是否显示在锁屏由你的系统设置决定。</p>
+
+<h2>9. 桌面服务卡片</h2>
+<p>主进程把宿主状态、核心版本、服务端点、更新时间四个只读字段写入应用沙箱 <code>filesDir/dsh_card_state.json</code>，卡片进程只读；不含 token、会话正文、绝对路径。卡片不常驻进程、不发起网络请求。</p>
+
+<h2>10. 你的权利</h2>
+<ul>
+  <li><strong>本地导出</strong>：会话与诊断日志可在应用内导出。</li>
+  <li><strong>本地删除</strong>：清除应用数据或卸载应用即删除全部沙箱数据（平台标准行为）。已写回设备目录的文件需你自行管理。</li>
+  <li><strong>删除密钥</strong>：删除你配置的模型服务密钥后，密钥即从系统密钥库移除。</li>
+  <li><strong>撤回授权</strong>：可在系统设置中管理通知授权，在应用中更换或取消工作区目录授权。</li>
+</ul>
+
+<h2>11. 未成年人</h2>
+<p>应用不面向未成年人提供账号注册或社交服务，不主动收集年龄信息。若你是未成年人，请在监护人指导下使用，并由监护人自行配置模型服务与密钥。</p>
+
+<h2>12. 联系方式</h2>
+<p>开发者专用联系邮箱：<strong>agiifzx@gmail.com</strong>。投诉、隐私问询与数据相关问题请通过此邮箱联系，开发者会尽快答复。当前无独立支持网站。</p>
+
+<h2>13. 政策更新</h2>
+<p>政策变更会随应用版本更新在本页公布并更新生效日期，不单独推送通知。</p>
+
+<footer>
+  定稿候选（2026-11-12）：运营主体与联系方式已由使用者确认；托管上线前请通读做最终确认。<br>
+  事实依据：<code>docs/05-上架合规与权限.md</code>、<code>docs/18-上架提审材料草稿.md</code>、<code>docs/20-上架操作单.md</code>。
+</footer>
+
+</body>
+</html>
